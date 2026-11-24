@@ -36,6 +36,29 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Motion: sembunyikan elemen animasi sejak awal supaya tidak berkedip. Dilewati jika pengguna memilih "reduce motion". -->
+    <script>
+        (function () {
+            var root = document.documentElement;
+            if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+            root.classList.add("motion-pending");
+            // Pengaman: kalau Motion belum termuat dalam 4 detik (koneksi lambat), tampilkan konten apa adanya
+            window.__motionFallback = setTimeout(function () {
+                root.classList.remove("motion-pending");
+            }, 4000);
+        })();
+    </script>
+
+    <!-- Anime.js: kondisi awal sebelum elemen dirender. -->
+    <script>
+        (function () {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            document.documentElement.classList.add('anime-pending');
+            window.__animeFallback = setTimeout(function () {
+                document.documentElement.classList.remove('anime-pending', 'anime-ready');
+            }, 4000);
+        })();
+    </script>
     <style>
         body {
             font-family: 'Lato', sans-serif;
@@ -62,6 +85,34 @@
         }
         .forest-gradient {
             background: linear-gradient(135deg, #1B4332 0%, #112D21 100%);
+        }
+
+        /* ===== Motion.dev: keadaan awal sebelum animasi ===== */
+        .motion-pending [data-hero],
+        .motion-pending [data-reveal] > * {
+            opacity: 0;
+        }
+        /* Motion yang mengatur opacity & transform pada elemen ini, jadi transisi CSS Tailwind untuk keduanya dimatikan
+           (transisi warna, border, dan bayangan tetap jalan). */
+        [data-reveal] > *,
+        [data-cta] {
+            transition-property: color, background-color, border-color, box-shadow !important;
+        }
+
+        /* Sembunyikan angka sampai terlihat; cadangan menampilkannya bila CDN gagal. */
+        .anime-pending [data-anime-count],
+        .anime-ready [data-anime-count]:not([data-anime-done]),
+        .anime-pending [data-anime-float] {
+            opacity: 0;
+        }
+        /* JS mengatur opacity dan transform; transisi visual lain tetap aktif. */
+        [data-hero],
+        [data-reveal] > *,
+        [data-cta],
+        [data-anime-count],
+        [data-anime-float],
+        [data-anime-praxis] {
+            transition-property: color, background-color, border-color, box-shadow !important;
         }
     </style>
 </head>
@@ -97,7 +148,7 @@
 
                 <!-- Action Button & Mobile Menu Toggle -->
                 <div class="flex items-center gap-3">
-                    <button onclick="openPPDBModal()" class="hidden sm:inline-flex items-center gap-2 bg-terra hover:bg-amber-800 text-white font-semibold text-xs uppercase tracking-widest px-5 py-2.5 rounded-full shadow-md transition transform hover:-translate-y-0.5">
+                    <button onclick="openPPDBModal()" data-cta class="hidden sm:inline-flex items-center gap-2 bg-terra hover:bg-amber-800 text-white font-semibold text-xs uppercase tracking-widest px-5 py-2.5 rounded-full shadow-md transition">
                         <i class="fa-solid font-normal fa-paper-plane"></i> PPDB Online
                     </button>
                     <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-forest rounded-lg hover:bg-beige focus:outline-none">
@@ -114,7 +165,7 @@
             <button onclick="switchTab('filosofi')" class="block w-full text-left px-3 py-2 rounded-md font-semibold text-forest hover:bg-beige">Filosofi Pendidikan</button>
             <button onclick="switchTab('lulusan')" class="block w-full text-left px-3 py-2 rounded-md font-semibold text-forest hover:bg-beige">Profil Lulusan</button>
             <button onclick="switchTab('pembelajaran')" class="block w-full text-left px-3 py-2 rounded-md font-semibold text-forest hover:bg-beige">Sistem Pembelajaran</button>
-            <button onclick="openPPDBModal()" class="w-full text-center bg-terra text-white font-bold py-2.5 rounded-lg shadow mt-2">Pendaftaran PPDB</button>
+            <button onclick="openPPDBModal()" data-cta class="w-full text-center bg-terra text-white font-bold py-2.5 rounded-lg shadow mt-2">Pendaftaran PPDB</button>
         </div>
     </header>
 
@@ -129,34 +180,34 @@
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                         <!-- Left Hero Content -->
                         <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-forest/10 border border-forest/20 text-forest text-xs font-bold tracking-widest uppercase">
+                            <div data-hero class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-forest/10 border border-forest/20 text-forest text-xs font-bold tracking-widest uppercase">
                                 <i class="fa-solid fa-graduation-cap"></i> Transformasi Pendidikan Berbasis Kearifan Lokal Nias
                             </div>
-                            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-forest leading-tight">
+                            <h1 data-hero class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-forest leading-tight">
                                 Menumbuhkan Generasi Berakar Kuat, Berwawasan Global
                             </h1>
-                            <p class="text-lg text-slate-700 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                            <p data-hero class="text-lg text-slate-700 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
                                 Ono Niha High School memadukan filsafat kearifan lokal Kepulauan Nias (*Oholu*, *Fa’awosa*) dengan pedagogi kritis transformatif Freirean untuk melahirkan pemimpin masa depan yang beretika, kritis, dan berdaya cipta.
                             </p>
                             <!-- Tagline Highlight Banner -->
-                            <div class="p-4 rounded-xl bg-forest/5 border-l-4 border-terra inline-block text-left">
+                            <div data-hero class="p-4 rounded-xl bg-forest/5 border-l-4 border-terra inline-block text-left">
                                 <p class="text-xs text-terra font-bold tracking-widest uppercase">Motto Institusi</p>
                                 <p class="font-serif italic text-xl font-bold text-forest">"Think Deeply. Care Widely. Act Wisely."</p>
                             </div>
-                            <div class="pt-4 flex flex-wrap gap-4 justify-center lg:justify-start">
-                                <button onclick="switchTab('filosofi')" class="bg-forest hover:bg-forest-dark text-white font-bold px-8 py-3.5 rounded-xl shadow-lg transition transform hover:-translate-y-0.5">
+                            <div data-hero class="pt-4 flex flex-wrap gap-4 justify-center lg:justify-start">
+                                <button onclick="switchTab('filosofi')" data-cta class="bg-forest hover:bg-forest-dark text-white font-bold px-8 py-3.5 rounded-xl shadow-lg transition">
                                     Jelajahi Filosofi <i class="fa-solid fa-arrow-right ml-2"></i>
                                 </button>
-                                <button onclick="switchTab('pembelajaran')" class="bg-white hover:bg-beige text-forest font-bold px-8 py-3.5 rounded-xl border border-beige shadow-sm transition">
+                                <button onclick="switchTab('pembelajaran')" data-cta class="bg-white hover:bg-beige text-forest font-bold px-8 py-3.5 rounded-xl border border-beige shadow-sm transition">
                                     Sistem Kurikulum
                                 </button>
                             </div>
                         </div>
 
                         <!-- Right Hero Badge: Large Crisp Logo Frame -->
-                        <div class="lg:col-span-5 flex justify-center">
+                        <div data-hero class="lg:col-span-5 flex justify-center">
                             <div class="relative w-72 sm:w-80 lg:w-96 p-6 rounded-3xl bg-white border border-beige shadow-2xl transition transform hover:scale-105 duration-300">
-                                <div class="absolute -top-4 -right-4 bg-gold text-forest font-extrabold text-xs px-3 py-1.5 rounded-full shadow border border-white uppercase tracking-wider">
+                                <div data-anime-float class="absolute -top-4 -right-4 bg-gold text-forest font-extrabold text-xs px-3 py-1.5 rounded-full shadow border border-white uppercase tracking-wider">
                                     Official Crest
                                 </div>
                                 <div class="w-full aspect-square logo-target"></div>
@@ -173,21 +224,21 @@
             <!-- Quick Stats & Pillars -->
             <div class="py-12 bg-white border-b border-beige">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div data-reveal class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                         <div class="p-4">
-                            <span class="block text-4xl font-extrabold text-terra font-serif">100%</span>
+                            <span data-anime-count class="block text-4xl font-extrabold text-terra font-serif">100%</span>
                             <span class="text-xs font-bold text-slate-600 uppercase tracking-wider mt-1 block">Kontekstual Ke Nias-an</span>
                         </div>
                         <div class="p-4">
-                            <span class="block text-4xl font-extrabold text-forest font-serif">1:10</span>
+                            <span data-anime-count class="block text-4xl font-extrabold text-forest font-serif">1:10</span>
                             <span class="text-xs font-bold text-slate-600 uppercase tracking-wider mt-1 block">Rasio Guru & Siswa</span>
                         </div>
                         <div class="p-4">
-                            <span class="block text-4xl font-extrabold text-ocean font-serif">12</span>
+                            <span data-anime-count class="block text-4xl font-extrabold text-ocean font-serif">12</span>
                             <span class="text-xs font-bold text-slate-600 uppercase tracking-wider mt-1 block">Pilar Filosofi PRO-2</span>
                         </div>
                         <div class="p-4">
-                            <span class="block text-4xl font-extrabold text-gold font-serif">3</span>
+                            <span data-anime-count class="block text-4xl font-extrabold text-gold font-serif">3</span>
                             <span class="text-xs font-bold text-slate-600 uppercase tracking-wider mt-1 block">Fase Praksis Freire</span>
                         </div>
                     </div>
@@ -201,7 +252,7 @@
                     <p class="text-slate-600 mt-2">Fundamen tri-dharma sekolah dalam mencetak generasi penerus yang arif dan berkarya nyata.</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div data-reveal class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div class="bg-white p-8 rounded-2xl border border-beige shadow-sm hover:shadow-md transition border-t-4 border-t-forest">
                         <div class="w-12 h-12 rounded-xl bg-forest/10 text-forest flex items-center justify-center text-xl font-bold mb-6">
                             <i class="fa-solid fa-brain"></i>
@@ -246,7 +297,7 @@
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
                 <!-- Sejarah & Latar Belakang -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div data-reveal class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div class="space-y-4">
                         <span class="text-xs font-bold text-terra uppercase tracking-widest">Latar Belakang Pendirian</span>
                         <h2 class="text-3xl font-bold text-forest">Menawab Tantangan Abad ke-21 Melalui Akar Kebudayaan</h2>
@@ -268,7 +319,7 @@
 
                 <!-- Visi Misi Nilai -->
                 <div class="bg-white p-10 rounded-3xl border border-beige custom-shadow">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div data-reveal class="grid grid-cols-1 md:grid-cols-2 gap-10">
                         <div class="space-y-4">
                             <h3 class="text-2xl font-bold text-forest flex items-center gap-2">
                                 <i class="fa-solid fa-compass text-terra"></i> Visi Institusi
@@ -321,7 +372,7 @@
                     </div>
 
                     <!-- Diagram Flow Buttons -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    <div data-reveal class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                         <button onclick="activatePraxisPhase(1)" id="praxis-btn-1" class="praxis-tab p-6 rounded-2xl border-2 text-left transition flex flex-col justify-between border-forest bg-forest/5">
                             <div>
                                 <span class="text-xs font-bold uppercase tracking-widest text-terra">Tahap 01</span>
@@ -349,8 +400,8 @@
 
                     <!-- Active Phase Detail Card -->
                     <div id="praxis-detail" class="bg-ivory p-6 rounded-2xl border border-beige">
-                        <h4 id="praxis-title" class="font-bold text-lg text-forest">Tahap 1: Dialog Horizontal (Problem-Posing Education)</h4>
-                        <p id="praxis-desc" class="text-slate-700 text-sm mt-2 leading-relaxed">
+                        <h4 id="praxis-title" data-anime-praxis class="font-bold text-lg text-forest">Tahap 1: Dialog Horizontal (Problem-Posing Education)</h4>
+                        <p id="praxis-desc" data-anime-praxis class="text-slate-700 text-sm mt-2 leading-relaxed">
                             Proses pembelajaran dimulai dari realitas empiris peserta didik. Tidak ada dogmatisme "pengetahuannya dipaksakan" (Anti-Banking Concept). Guru berperan memantik diskusi krisis dengan mendengarkan suara siswa dan komunitas.
                         </p>
                     </div>
@@ -359,7 +410,7 @@
 
             <!-- THE 12 SECTIONS OF PRO-2 PHILOSOPHY -->
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mb-16">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div data-reveal class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
                     <!-- 1 -->
                     <div class="bg-white p-6 rounded-2xl border border-beige hover:border-forest transition">
@@ -483,7 +534,7 @@
             </div>
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div data-reveal class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Attribute 1 -->
                     <div class="bg-white p-8 rounded-2xl border border-beige shadow-sm">
                         <div class="w-12 h-12 rounded-full bg-terra/10 text-terra flex items-center justify-center font-bold text-xl mb-4">
@@ -565,7 +616,7 @@
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
                 <!-- Structure Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div data-reveal class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="bg-white p-8 rounded-3xl border border-beige shadow-sm">
                         <h3 class="text-2xl font-bold text-forest mb-4"><i class="fa-solid fa-cubes text-terra mr-2"></i> Blok Pembelajaran Tematik</h3>
                         <p class="text-slate-700 text-sm leading-relaxed mb-4">
@@ -592,7 +643,7 @@
                 <!-- Schedule Breakdown -->
                 <div class="bg-white p-8 rounded-3xl border border-beige">
                     <h3 class="text-2xl font-bold text-forest mb-6 text-center">Struktur Pembelajaran Mingguan</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+                    <div data-reveal class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
                         <div class="p-4 bg-ivory rounded-2xl border border-beige">
                             <span class="text-sm font-bold text-terra block">Senin & Selasa</span>
                             <span class="text-xs font-bold text-forest mt-1 block">Fondasi Teoretis & Sains</span>
@@ -692,7 +743,7 @@
                     <label class="block text-xs font-bold text-forest uppercase mb-1">Nomor WhatsApp / HP Orang Tua</label>
                     <input type="tel" required class="w-full px-4 py-2.5 rounded-xl border border-beige bg-white text-sm focus:outline-none focus:border-forest" placeholder="08xxxxxxxxxx">
                 </div>
-                <button type="submit" class="w-full bg-forest hover:bg-forest-dark text-white font-bold py-3 rounded-xl shadow-lg transition">
+                <button type="submit" data-cta class="w-full bg-forest hover:bg-forest-dark text-white font-bold py-3 rounded-xl shadow-lg transition">
                     Kirim Form Pendaftaran
                 </button>
             </form>
@@ -802,6 +853,168 @@
             setTimeout(() => {
                 closePPDBModal();
             }, 2500);
+        }
+    </script>
+
+    <!-- ================= ANIMASI: Motion.dev (Vanilla JS via CDN) ================= -->
+    <script type="module" onerror="document.documentElement.classList.remove('motion-pending')">
+        import { animate, inView, stagger, hover, press } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
+
+        const root = document.documentElement;
+
+        // Lewati semua animasi jika pengguna memilih "reduce motion" atau pengaman 4 detik sudah menampilkan konten
+        if (root.classList.contains("motion-pending")) {
+            clearTimeout(window.__motionFallback);
+
+            const easeOut = [0.22, 1, 0.36, 1];
+
+            // 1. HERO: fade in + slide up berurutan saat halaman dibuka
+            animate(
+                document.querySelectorAll("[data-hero]"),
+                { opacity: [0, 1], y: [32, 0] },
+                { duration: 0.8, delay: stagger(0.12), ease: easeOut }
+            );
+
+            // 2. KARTU/GRID: muncul berurutan saat di-scroll ke area pandang
+            //    Kartu yang masuk layar pada saat yang sama dikumpulkan dalam satu batch, lalu di-stagger.
+            let batch = [];
+            inView(
+                document.querySelectorAll("[data-reveal] > *"),
+                (card) => {
+                    if (batch.length === 0) {
+                        queueMicrotask(() => {
+                            const cards = batch.sort((a, b) =>
+                                a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1
+                            );
+                            batch = [];
+                            // jeda antar kartu 0,1 detik, tetapi total jeda dibatasi 0,5 detik agar batch besar tidak terasa lambat
+                            const step = Math.min(0.1, 0.5 / cards.length);
+                            animate(
+                                cards,
+                                { opacity: [0, 1], y: [40, 0] },
+                                { duration: 0.6, delay: stagger(step), ease: easeOut }
+                            );
+                        });
+                    }
+                    batch.push(card);
+                    // tidak mengembalikan fungsi = animasi hanya diputar sekali per kartu
+                },
+                { margin: "0px 0px -12% 0px" }
+            );
+
+            // 3. TOMBOL CTA: membal (spring) saat di-hover dan ditekan
+            const bounce = { type: "spring", stiffness: 420, damping: 14 };
+            const squish = { type: "spring", stiffness: 600, damping: 18 };
+            const lifted = { scale: 1.07, y: -2 };
+            const rest = { scale: 1, y: 0 };
+
+            hover("[data-cta]", (button) => {
+                animate(button, lifted, bounce);
+                return () => animate(button, rest, bounce);
+            });
+
+            press("[data-cta]", (button) => {
+                animate(button, { scale: 0.93, y: 0 }, squish);
+                // saat dilepas: kembali ke posisi hover jika kursor masih di atas tombol
+                return () => animate(button, button.matches(":hover") ? lifted : rest, bounce);
+            });
+        }
+    </script>
+
+    <!-- ================= ANIMASI: Anime.js v4 (elemen terpisah dari Motion) ================= -->
+    <script type="module" onerror="clearTimeout(window.__animeFallback); document.documentElement.classList.remove('anime-pending', 'anime-ready')">
+        import { animate, stagger } from "https://cdn.jsdelivr.net/npm/animejs@4.5.0/+esm";
+
+        const rootAnime = document.documentElement;
+        if (rootAnime.classList.contains('anime-pending') &&
+            !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            clearTimeout(window.__animeFallback);
+            const originalStats = new Map();
+            try {
+                rootAnime.classList.replace('anime-pending', 'anime-ready');
+
+                // Angka dihitung hanya ketika statistik terlihat; satu kali saja.
+                const stats = document.querySelectorAll('[data-anime-count]');
+                stats.forEach(el => originalStats.set(el, el.textContent.trim()));
+                const statsObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (!entry.isIntersecting) return;
+                        const el = entry.target;
+                        if (!el.closest('.page-section.active')) return;
+                        observer.unobserve(el);
+                        const original = originalStats.get(el);
+                        const match = original.match(/^(.*?)(\d+)([^\d]*)$/);
+                        if (!match) {
+                            el.setAttribute('data-anime-done', '');
+                            return;
+                        }
+                        const [, prefix, digits, suffix] = match;
+                        const total = Number(digits);
+                        const state = { value: 0 };
+                        el.textContent = prefix + '0' + suffix;
+                        el.setAttribute('data-anime-done', '');
+                        animate(state, {
+                            value: [0, total],
+                            duration: 1350,
+                            ease: 'out(3)',
+                            onUpdate: () => {
+                                el.textContent = prefix + Math.min(total, Math.round(state.value)) + suffix;
+                            },
+                            onComplete: () => { el.textContent = original; }
+                        });
+                    });
+                }, { threshold: 0.25 });
+                stats.forEach(el => statsObserver.observe(el));
+
+                // Lencana berayun pelan, berhenti saat tidak terlihat.
+                const crest = document.querySelector('[data-anime-float]');
+                if (crest) {
+                    let floating = null;
+                    const crestObserver = new IntersectionObserver(entries => {
+                        const visible = entries[0].isIntersecting &&
+                            !!crest.closest('.page-section.active');
+                        if (visible) {
+                            if (floating) {
+                                floating.resume();
+                            } else {
+                                floating = animate(crest, {
+                                    y: ['-3px', '4px'],
+                                    duration: 2600,
+                                    ease: 'inOutSine',
+                                    loop: true,
+                                    alternate: true
+                                });
+                            }
+                        } else if (floating) {
+                            floating.pause();
+                        }
+                    }, { threshold: 0.1 });
+                    crestObserver.observe(crest);
+                }
+
+                // Handler klik tambahan: onclick lama memperbarui isi lebih dulu.
+                let lastPraxisAnimation = null;
+                document.querySelectorAll('[id^="praxis-btn-"]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const title = document.getElementById('praxis-title');
+                        const desc = document.getElementById('praxis-desc');
+                        if (!title || !desc) return;
+                        if (lastPraxisAnimation) lastPraxisAnimation.cancel();
+                        lastPraxisAnimation = animate([title, desc], {
+                            opacity: [0, 1],
+                            y: [9, 0],
+                            delay: stagger(70),
+                            duration: 440,
+                            ease: 'out(3)'
+                        });
+                    });
+                });
+            } catch (error) {
+                // Saat inisialisasi bermasalah, tampilkan semua konten asli.
+                rootAnime.classList.remove('anime-pending', 'anime-ready');
+                originalStats.forEach((text, el) => { el.textContent = text; });
+                console.error('Anime.js gagal diinisialisasi:', error);
+            }
         }
     </script>
 </body>
