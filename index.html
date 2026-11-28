@@ -1418,10 +1418,325 @@ a {
   scroll-margin-top: 96px;
 }
 
+/* -------------------- SCHOOL VIDEO SHOWCASE (FASILITAS) -------------------- */
+.school-video-shell {
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-md);
+}
+
+.school-video-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--forest-dark);
+  border: 1px solid rgba(27, 67, 50, 0.16);
+}
+
+.school-video-player {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  background: var(--forest-dark);
+}
+
+.school-video-annotations {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 0.28s ease;
+}
+
+.school-video-stage.annotations-hidden .school-video-annotations,
+.design-lightbox.annotations-hidden .design-lightbox-annotations {
+  opacity: 0;
+}
+
+.school-video-stage:fullscreen {
+  border-radius: 0;
+  border: 0;
+  width: 100vw;
+  height: 100vh;
+  aspect-ratio: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0B1611;
+}
+
+.school-video-stage:fullscreen .school-video-player {
+  object-fit: contain;
+}
+
+.school-video-stage:fullscreen .school-video-annotations {
+  inset: auto;
+  width: min(100vw, calc(100vh * 16 / 9));
+  height: min(100vh, calc(100vw * 9 / 16));
+}
+
+.callout-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: calloutPulse 2.4s ease-out infinite;
+}
+
+@keyframes calloutPulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.85;
+  }
+  70% {
+    transform: scale(1.85);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.85);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .callout-pulse {
+    animation: none;
+    opacity: 0.45;
+  }
+}
+
+.school-video-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: linear-gradient(180deg, rgba(18, 46, 34, 0.14) 0%, rgba(18, 46, 34, 0.42) 100%);
+  border: 0;
+  width: 100%;
+  cursor: pointer;
+  color: var(--ivory);
+  transition: opacity var(--transition), background var(--transition);
+}
+
+.school-video-overlay:hover {
+  background: linear-gradient(180deg, rgba(18, 46, 34, 0.22) 0%, rgba(18, 46, 34, 0.54) 100%);
+}
+
+.school-video-overlay:focus-visible {
+  outline: 3px solid var(--beige);
+  outline-offset: -3px;
+}
+
+.school-video-stage.is-playing .school-video-overlay {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.school-video-play-circle {
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  background: rgba(27, 67, 50, 0.9);
+  border: 2px solid rgba(250, 248, 245, 0.85);
+  box-shadow: 0 14px 32px rgba(10, 24, 18, 0.36);
+  display: grid;
+  place-items: center;
+  transition: transform var(--transition), background var(--transition);
+}
+
+.school-video-overlay:hover .school-video-play-circle {
+  transform: scale(1.07);
+  background: var(--forest);
+}
+
+.school-video-play-label {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 7px 16px;
+  border-radius: 999px;
+  background: rgba(18, 46, 34, 0.82);
+  border: 1px solid rgba(233, 223, 206, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.school-video-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-top: 20px;
+  margin-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.school-video-caption h3 {
+  font-size: 1.24rem;
+  margin-bottom: 4px;
+}
+
+.school-video-caption p {
+  font-size: 0.92rem;
+  color: var(--ink-muted);
+}
+
+.school-video-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.btn-sm {
+  padding: 9px 18px;
+  font-size: 0.85rem;
+}
+
+.video-highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.video-highlight-item {
+  background: var(--ivory);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+}
+
+.video-highlight-item span {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 6px;
+}
+
+.video-highlight-item h4 {
+  font-size: 1.04rem;
+  margin-bottom: 6px;
+}
+
+.video-highlight-item p {
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--ink-muted);
+}
+
+.design-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(15, 31, 24, 0.84);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.design-lightbox[hidden] {
+  display: none !important;
+}
+
+.design-lightbox-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 1060px;
+  background: var(--ivory);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(233, 223, 206, 0.32);
+  box-shadow: 0 28px 64px rgba(0, 0, 0, 0.42);
+}
+
+.design-lightbox-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 22px;
+  background: var(--forest-dark);
+  color: var(--ivory);
+}
+
+.design-lightbox-bar strong {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.08rem;
+  font-weight: 600;
+}
+
+.design-lightbox-close {
+  background: rgba(250, 248, 245, 0.14);
+  color: var(--ivory);
+  border: 1px solid rgba(233, 223, 206, 0.35);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.design-lightbox-close:hover {
+  background: var(--ivory);
+  color: var(--forest-dark);
+}
+
+.design-lightbox-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0E1F18;
+}
+
+.design-lightbox-canvas {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  line-height: 0;
+}
+
+.design-lightbox-img {
+  display: block;
+  max-width: 100%;
+  max-height: 78vh;
+  width: auto;
+  height: auto;
+  background: #0E1F18;
+}
+
+.design-lightbox-annotations {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
 /* -------------------- RESPONSIVE -------------------- */
 @media (max-width: 960px) {
   .hero-grid, .stats-grid, .editorial-blocks, .grid-3, .grad-tabs-grid, .timeline-grid, .osis-box, .feature-split, .footer-grid {
     grid-template-columns: 1fr;
+  }
+  .video-highlights-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
   .timeline-step:not(:last-child)::after {
     display: none;
@@ -1485,6 +1800,16 @@ a {
     grid-template-columns: 1fr;
     gap: 4px;
   }
+  .school-video-shell {
+    padding: 16px;
+  }
+  .school-video-play-circle {
+    width: 60px;
+    height: 60px;
+  }
+  .video-highlights-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 
@@ -1503,22 +1828,34 @@ a {
     .site-page [data-reveal], .site-page [data-reveal].visible {
       opacity: 1; transform: none;
     }
-    [data-hero], [data-reveal], [data-cta], [data-anime-panel], [data-anime-float] {
+    [data-hero], [data-reveal], [data-cta], [data-anime-panel], [data-anime-float], [data-anime-play], [data-anime-dialog],
+    .site-page .page-hero .breadcrumb, .site-page .page-hero h1, .site-page .page-hero .hero-subtitle {
       transition-property: color, background, border-color, box-shadow, outline !important;
     }
     .site-page [data-anime-panel] { animation: none; }
+    html.ono-motion .bar-fill { transition: none !important; }
     html.ono-motion [data-hero]:not([data-motion-done]),
+    html.ono-motion .site-page .page-hero .breadcrumb:not([data-motion-done]),
+    html.ono-motion .site-page .page-hero h1:not([data-motion-done]),
+    html.ono-motion .site-page .page-hero .hero-subtitle:not([data-motion-done]),
     html.ono-motion .site-page [data-reveal]:not([data-motion-done]) {
       opacity: 0; transform: translateY(18px);
     }
     html.ono-motion [data-cta]:hover,
-    html.ono-motion [data-anime-float]:hover { transform: none; }
+    html.ono-motion [data-anime-float]:hover,
+    html.ono-motion .school-video-overlay:hover [data-anime-play] { transform: none; }
     @media (prefers-reduced-motion: reduce) {
-      html.ono-motion [data-hero], html.ono-motion .site-page [data-reveal] {
+      html.ono-motion [data-hero],
+      html.ono-motion .site-page .page-hero .breadcrumb,
+      html.ono-motion .site-page .page-hero h1,
+      html.ono-motion .site-page .page-hero .hero-subtitle,
+      html.ono-motion .site-page [data-reveal] {
         opacity: 1 !important; transform: none !important;
       }
       .site-page [data-cta], .site-page [data-reveal], .site-page [data-anime-float],
-      .site-page [data-anime-panel] { transition: none !important; animation: none !important; transform: none !important; }
+      .site-page [data-anime-panel], .site-page [data-anime-play], .site-page [data-anime-dialog] {
+        transition: none !important; animation: none !important; transform: none !important;
+      }
     }
   </style>
 </head>
@@ -2369,6 +2706,171 @@ a {
       </div>
     </section>
 
+    <section class="section bg-beige" id="video-sekolah">
+      <div class="container">
+        <div data-reveal class="section-header reveal">
+          <div class="eyebrow">Visualisasi Kawasan Sekolah</div>
+          <h2>Video Desain Ono Niha High School</h2>
+          <p class="lead">
+            Saksikan rancangan kawasan kampus Ono Niha High School di pesisir Teluk Dalam, Nias Selatan — memadukan gedung belajar, pendopo dialog bernuansa budaya Nias, area asrama peserta didik, dan ruang hijau terbuka yang menghadap langsung ke pantai.
+          </p>
+        </div>
+
+        <div data-reveal class="school-video-shell reveal">
+          <div class="school-video-stage" id="schoolVideoStage">
+            <video
+              id="schoolVideoPlayer"
+              class="school-video-player"
+              controls
+              playsinline
+              preload="metadata"
+              poster="Desain%20Sekolah.png"
+              aria-label="Video tampilan kawasan Ono Niha High School"
+            >
+              <source src="Tampak%20depan.mp4" type="video/mp4">
+              Peramban Anda belum mendukung pemutaran video HTML5. Silakan unduh berkas <a href="Tampak%20depan.mp4">Tampak depan.mp4</a>.
+            </video>
+            <svg
+              id="schoolVideoAnnotations"
+              class="school-video-annotations"
+              viewBox="0 0 1280 720"
+              preserveAspectRatio="xMidYMid meet"
+              aria-hidden="true"
+            >
+              <defs>
+                <filter id="calloutShadow" x="-15%" y="-15%" width="130%" height="140%">
+                  <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#0B1611" flood-opacity="0.45"/>
+                </filter>
+                <filter id="lineGlow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="1" stdDeviation="2.5" flood-color="#0B1611" flood-opacity="0.7"/>
+                </filter>
+              </defs>
+
+              <!-- Penanda Gedung Belakang: Gedung Asrama -->
+              <g id="markerAsrama">
+                <polyline id="asramaLine" points="720,172 845,78 875,78" fill="none" stroke="#FAF8F5" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#lineGlow)"/>
+                <circle id="asramaPulse" class="callout-pulse" cx="720" cy="172" r="14" fill="none" stroke="#FAF8F5" stroke-width="2.5"/>
+                <circle id="asramaOuter" cx="720" cy="172" r="9.5" fill="#FAF8F5" filter="url(#lineGlow)"/>
+                <circle id="asramaInner" cx="720" cy="172" r="5.5" fill="#1D3557"/>
+                <g id="asramaCard" transform="translate(875, 43)" filter="url(#calloutShadow)">
+                  <rect width="276" height="70" rx="14" fill="rgba(29, 53, 87, 0.94)" stroke="#E9DFCE" stroke-width="2"/>
+                  <rect x="12" y="15" width="4" height="40" rx="2" fill="#E9DFCE"/>
+                  <text x="26" y="29" fill="#E9DFCE" font-family="Inter, sans-serif" font-size="12.5" font-weight="700" letter-spacing="1.6">GEDUNG BELAKANG</text>
+                  <text x="26" y="54" fill="#FAF8F5" font-family="'Playfair Display', Georgia, serif" font-size="23" font-weight="700">Gedung Asrama</text>
+                </g>
+              </g>
+
+              <!-- Penanda Gedung Depan: Gedung Sekolah -->
+              <g id="markerSekolah">
+                <polyline id="sekolahLine" points="815,390 900,532 930,532" fill="none" stroke="#FAF8F5" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#lineGlow)"/>
+                <circle id="sekolahPulse" class="callout-pulse" cx="815" cy="390" r="14" fill="none" stroke="#FAF8F5" stroke-width="2.5"/>
+                <circle id="sekolahOuter" cx="815" cy="390" r="9.5" fill="#FAF8F5" filter="url(#lineGlow)"/>
+                <circle id="sekolahInner" cx="815" cy="390" r="5.5" fill="#1B4332"/>
+                <g id="sekolahCard" transform="translate(930, 497)" filter="url(#calloutShadow)">
+                  <rect width="276" height="70" rx="14" fill="rgba(27, 67, 50, 0.94)" stroke="#E9DFCE" stroke-width="2"/>
+                  <rect x="12" y="15" width="4" height="40" rx="2" fill="#E9DFCE"/>
+                  <text x="26" y="29" fill="#E9DFCE" font-family="Inter, sans-serif" font-size="12.5" font-weight="700" letter-spacing="1.6">GEDUNG DEPAN</text>
+                  <text x="26" y="54" fill="#FAF8F5" font-family="'Playfair Display', Georgia, serif" font-size="23" font-weight="700">Gedung Sekolah</text>
+                </g>
+              </g>
+            </svg>
+            <button
+              type="button"
+              id="schoolVideoPlayBtn"
+              class="school-video-overlay"
+              aria-label="Putar video desain Ono Niha High School"
+            >
+              <span data-anime-play class="school-video-play-circle" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5.14v13.72a1 1 0 0 0 1.52.85l10.6-6.86a1 1 0 0 0 0-1.7L9.52 4.29A1 1 0 0 0 8 5.14z"/>
+                </svg>
+              </span>
+              <span class="school-video-play-label">Putar Video Tampak Depan Sekolah</span>
+            </button>
+          </div>
+
+          <div class="school-video-footer">
+            <div class="school-video-caption">
+              <h3>Tampak Depan &amp; Tata Kawasan Sekolah</h3>
+              <p>Penunjuk gedung bergerak otomatis mengikuti kamera: <strong>Gedung Sekolah</strong> di bagian depan dan <strong>Gedung Asrama</strong> di bagian belakang.</p>
+            </div>
+            <div class="school-video-actions">
+              <button data-cta type="button" id="toggleVideoAnnotations" class="btn btn-outline btn-sm" aria-pressed="true">Sembunyikan Penanda</button>
+              <button data-cta type="button" id="fullscreenSchoolVideo" class="btn btn-outline btn-sm">Layar Penuh</button>
+              <button data-cta type="button" id="openDesignLightbox" class="btn btn-outline btn-sm">Lihat Gambar Desain</button>
+              <a data-cta href="#/fasilitas/asrama" class="btn btn-primary btn-sm">Lihat Kehidupan Asrama &darr;</a>
+            </div>
+          </div>
+
+          <div class="video-highlights-grid">
+            <div data-reveal class="video-highlight-item reveal">
+              <span>Area 01</span>
+              <h4>Gedung Belajar Utama</h4>
+              <p>Ruang kelas, sarana riset, dan laboratorium proyek observasi di bagian depan kampus.</p>
+            </div>
+            <div data-reveal class="video-highlight-item reveal">
+              <span>Area 02</span>
+              <h4>Pendopo Budaya Nias</h4>
+              <p>Ruang terbuka di halaman depan untuk dialog kritis bersama warga dan tokoh adat.</p>
+            </div>
+            <div data-reveal class="video-highlight-item reveal">
+              <span>Area 03</span>
+              <h4>Gedung Asrama Siswa</h4>
+              <p>Hunian peserta didik di area belakang dengan lapangan hijau sebagai ruang komunal.</p>
+            </div>
+            <div data-reveal class="video-highlight-item reveal">
+              <span>Area 04</span>
+              <h4>Ekosistem Pesisir</h4>
+              <p>Terhubung langsung dengan pantai Teluk Dalam sebagai ruang kelas terbuka berbasis alam.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="designLightbox" class="design-lightbox" role="dialog" aria-modal="true" aria-labelledby="designLightboxTitle" hidden>
+      <div data-anime-dialog class="design-lightbox-dialog">
+        <div class="design-lightbox-bar">
+          <strong id="designLightboxTitle">Desain Kawasan Ono Niha High School — Teluk Dalam, Nias Selatan</strong>
+          <button type="button" id="closeDesignLightbox" class="design-lightbox-close" aria-label="Tutup tampilan gambar desain">Tutup &times;</button>
+        </div>
+        <div class="design-lightbox-body">
+          <div class="design-lightbox-canvas">
+            <img src="Desain%20Sekolah.png" alt="Ilustrasi tampak depan desain kawasan Ono Niha High School di pesisir Teluk Dalam, Nias Selatan" class="design-lightbox-img">
+            <svg class="design-lightbox-annotations" viewBox="0 0 1672 868" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <defs>
+                <filter id="lbShadow" x="-15%" y="-15%" width="130%" height="140%">
+                  <feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#0B1611" flood-opacity="0.45"/>
+                </filter>
+              </defs>
+              <g>
+                <polyline points="932,207 1098,94 1136,94" fill="none" stroke="#FAF8F5" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#lbShadow)"/>
+                <circle cx="932" cy="207" r="12" fill="#FAF8F5" filter="url(#lbShadow)"/>
+                <circle cx="932" cy="207" r="7" fill="#1D3557"/>
+                <g transform="translate(1136, 52)" filter="url(#lbShadow)">
+                  <rect width="340" height="84" rx="16" fill="rgba(29, 53, 87, 0.94)" stroke="#E9DFCE" stroke-width="2.5"/>
+                  <rect x="14" y="18" width="5" height="48" rx="2.5" fill="#E9DFCE"/>
+                  <text x="32" y="34" fill="#E9DFCE" font-family="Inter, sans-serif" font-size="15" font-weight="700" letter-spacing="1.8">GEDUNG BELAKANG</text>
+                  <text x="32" y="65" fill="#FAF8F5" font-family="'Playfair Display', Georgia, serif" font-size="28" font-weight="700">Gedung Asrama</text>
+                </g>
+              </g>
+              <g>
+                <polyline points="1047,470 1160,642 1198,642" fill="none" stroke="#FAF8F5" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#lbShadow)"/>
+                <circle cx="1047" cy="470" r="12" fill="#FAF8F5" filter="url(#lbShadow)"/>
+                <circle cx="1047" cy="470" r="7" fill="#1B4332"/>
+                <g transform="translate(1198, 600)" filter="url(#lbShadow)">
+                  <rect width="340" height="84" rx="16" fill="rgba(27, 67, 50, 0.94)" stroke="#E9DFCE" stroke-width="2.5"/>
+                  <rect x="14" y="18" width="5" height="48" rx="2.5" fill="#E9DFCE"/>
+                  <text x="32" y="34" fill="#E9DFCE" font-family="Inter, sans-serif" font-size="15" font-weight="700" letter-spacing="1.8">GEDUNG DEPAN</text>
+                  <text x="32" y="65" fill="#FAF8F5" font-family="'Playfair Display', Georgia, serif" font-size="28" font-weight="700">Gedung Sekolah</text>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <section class="section">
       <div class="container">
         <div data-reveal class="section-header reveal">
@@ -2614,6 +3116,7 @@ a {
           <div class="footer-title">Kehidupan Sekolah</div>
           <ul class="footer-links">
             <li><a href="#/kegiatan">Kegiatan Sekolah &amp; OSIS</a></li>
+            <li><a href="#/fasilitas/video-sekolah">Video Kawasan Sekolah</a></li>
             <li><a href="#/fasilitas">Fasilitas &amp; Lingkungan Belajar</a></li>
             <li><a href="#/fasilitas/asrama">Kehidupan Asrama</a></li>
           </ul>
@@ -2642,6 +3145,176 @@ document.addEventListener('DOMContentLoaded', () => {
   const views = [...document.querySelectorAll('.site-page[data-route]')];
   const toggleBtn = document.getElementById('menuToggle');
   const mobileDrawer = document.getElementById('mobileDrawer');
+  const schoolVideo = document.getElementById('schoolVideoPlayer');
+  const schoolVideoStage = document.getElementById('schoolVideoStage');
+  const schoolVideoPlayBtn = document.getElementById('schoolVideoPlayBtn');
+  const toggleAnnotationsBtn = document.getElementById('toggleVideoAnnotations');
+  const fullscreenVideoBtn = document.getElementById('fullscreenSchoolVideo');
+  const designLightbox = document.getElementById('designLightbox');
+  const openDesignLightboxBtn = document.getElementById('openDesignLightbox');
+  const closeDesignLightboxBtn = document.getElementById('closeDesignLightbox');
+
+  const asramaLine = document.getElementById('asramaLine');
+  const asramaPulse = document.getElementById('asramaPulse');
+  const asramaOuter = document.getElementById('asramaOuter');
+  const asramaInner = document.getElementById('asramaInner');
+  const asramaCard = document.getElementById('asramaCard');
+  const sekolahLine = document.getElementById('sekolahLine');
+  const sekolahPulse = document.getElementById('sekolahPulse');
+  const sekolahOuter = document.getElementById('sekolahOuter');
+  const sekolahInner = document.getElementById('sekolahInner');
+  const sekolahCard = document.getElementById('sekolahCard');
+
+  const asramaTrack = [
+    [0.0, 620, 162], [1.0, 642, 165], [2.0, 665, 168], [3.0, 686, 170],
+    [4.0, 706, 172], [5.0, 725, 172], [6.0, 748, 172], [7.0, 768, 170],
+    [8.0, 790, 170], [9.0, 810, 170], [10.0, 828, 170]
+  ];
+  const sekolahTrack = [
+    [0.0, 815, 355], [1.0, 785, 356], [2.0, 748, 358], [3.0, 710, 360],
+    [4.0, 672, 360], [5.0, 635, 360], [6.0, 598, 360], [7.0, 565, 360],
+    [8.0, 532, 360], [9.0, 502, 360], [10.0, 476, 360]
+  ];
+
+  function interpolateTrack(track, t) {
+    if (t <= track[0][0]) return [track[0][1], track[0][2]];
+    const last = track[track.length - 1];
+    if (t >= last[0]) return [last[1], last[2]];
+    for (let i = 0; i < track.length - 1; i++) {
+      const [t0, x0, y0] = track[i];
+      const [t1, x1, y1] = track[i + 1];
+      if (t >= t0 && t <= t1) {
+        const p = (t - t0) / (t1 - t0);
+        return [x0 + (x1 - x0) * p, y0 + (y1 - y0) * p];
+      }
+    }
+    return [last[1], last[2]];
+  }
+
+  function placeCallout(lineEl, pulseEl, outerEl, innerEl, cardEl, tx, ty, elbowY, offsetX) {
+    if (!lineEl || !cardEl) return;
+    const ex = Math.min(tx + offsetX, 920);
+    const bx = Math.min(ex + 28, 975);
+    const rx = Math.round(tx);
+    const ry = Math.round(ty);
+    const rex = Math.round(ex);
+    const rbx = Math.round(bx);
+    lineEl.setAttribute('points', `${rx},${ry} ${rex},${elbowY} ${rbx},${elbowY}`);
+    if (pulseEl) { pulseEl.setAttribute('cx', rx); pulseEl.setAttribute('cy', ry); }
+    if (outerEl) { outerEl.setAttribute('cx', rx); outerEl.setAttribute('cy', ry); }
+    if (innerEl) { innerEl.setAttribute('cx', rx); innerEl.setAttribute('cy', ry); }
+    cardEl.setAttribute('transform', `translate(${rbx}, ${elbowY - 35})`);
+  }
+
+  let videoStarted = false;
+  let videoRafId = 0;
+
+  function syncVideoAnnotations() {
+    if (!schoolVideo) return;
+    if (!videoStarted) {
+      placeCallout(asramaLine, asramaPulse, asramaOuter, asramaInner, asramaCard, 720, 172, 78, 125);
+      placeCallout(sekolahLine, sekolahPulse, sekolahOuter, sekolahInner, sekolahCard, 815, 390, 532, 85);
+      return;
+    }
+    const t = schoolVideo.currentTime || 0;
+    const [ax, ay] = interpolateTrack(asramaTrack, t);
+    const [sx, sy] = interpolateTrack(sekolahTrack, t);
+    placeCallout(asramaLine, asramaPulse, asramaOuter, asramaInner, asramaCard, ax, ay, 78, 122);
+    placeCallout(sekolahLine, sekolahPulse, sekolahOuter, sekolahInner, sekolahCard, sx, sy, 532, 105);
+  }
+
+  function tickVideoAnnotations() {
+    syncVideoAnnotations();
+    if (schoolVideo && !schoolVideo.paused && !schoolVideo.ended) {
+      videoRafId = requestAnimationFrame(tickVideoAnnotations);
+    } else {
+      videoRafId = 0;
+    }
+  }
+
+  function closeDesignLightbox() {
+    if (!designLightbox || designLightbox.hidden) return;
+    designLightbox.hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  if (schoolVideo && schoolVideoStage && schoolVideoPlayBtn) {
+    schoolVideoPlayBtn.addEventListener('click', () => {
+      videoStarted = true;
+      schoolVideoStage.classList.add('is-playing');
+      syncVideoAnnotations();
+      const playPromise = schoolVideo.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => schoolVideoStage.classList.remove('is-playing'));
+      }
+    });
+    schoolVideo.addEventListener('play', () => {
+      videoStarted = true;
+      schoolVideoStage.classList.add('is-playing');
+      if (!videoRafId) videoRafId = requestAnimationFrame(tickVideoAnnotations);
+    });
+    schoolVideo.addEventListener('timeupdate', () => {
+      if (schoolVideo.currentTime > 0) videoStarted = true;
+      syncVideoAnnotations();
+    });
+    schoolVideo.addEventListener('seeked', () => {
+      videoStarted = true;
+      syncVideoAnnotations();
+    });
+    schoolVideo.addEventListener('ended', () => {
+      if (videoRafId) { cancelAnimationFrame(videoRafId); videoRafId = 0; }
+      syncVideoAnnotations();
+      schoolVideoStage.classList.remove('is-playing');
+    });
+    schoolVideo.addEventListener('pause', () => {
+      if (videoRafId) { cancelAnimationFrame(videoRafId); videoRafId = 0; }
+      syncVideoAnnotations();
+      if (schoolVideo.currentTime === 0 || schoolVideo.ended) {
+        schoolVideoStage.classList.remove('is-playing');
+      }
+    });
+    syncVideoAnnotations();
+  }
+
+  if (toggleAnnotationsBtn && schoolVideoStage) {
+    toggleAnnotationsBtn.addEventListener('click', () => {
+      const hidden = schoolVideoStage.classList.toggle('annotations-hidden');
+      if (designLightbox) designLightbox.classList.toggle('annotations-hidden', hidden);
+      toggleAnnotationsBtn.setAttribute('aria-pressed', String(!hidden));
+      toggleAnnotationsBtn.textContent = hidden ? 'Tampilkan Penanda' : 'Sembunyikan Penanda';
+    });
+  }
+
+  if (fullscreenVideoBtn && schoolVideoStage && schoolVideo) {
+    fullscreenVideoBtn.addEventListener('click', () => {
+      if (document.fullscreenElement) {
+        document.exitFullscreen?.();
+      } else if (schoolVideoStage.requestFullscreen) {
+        schoolVideoStage.requestFullscreen();
+      } else if (schoolVideo.requestFullscreen) {
+        schoolVideo.requestFullscreen();
+      }
+    });
+    document.addEventListener('fullscreenchange', () => {
+      const active = document.fullscreenElement === schoolVideoStage;
+      fullscreenVideoBtn.textContent = active ? 'Keluar Layar Penuh' : 'Layar Penuh';
+    });
+  }
+
+  if (designLightbox && openDesignLightboxBtn && closeDesignLightboxBtn) {
+    openDesignLightboxBtn.addEventListener('click', () => {
+      designLightbox.hidden = false;
+      document.body.style.overflow = 'hidden';
+      closeDesignLightboxBtn.focus();
+    });
+    closeDesignLightboxBtn.addEventListener('click', () => {
+      closeDesignLightbox();
+      openDesignLightboxBtn.focus();
+    });
+    designLightbox.addEventListener('click', event => {
+      if (event.target === designLightbox) closeDesignLightbox();
+    });
+  }
 
   function closeMobileMenu() {
     if (mobileDrawer) mobileDrawer.classList.remove('open');
@@ -2653,7 +3326,10 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleBtn.setAttribute('aria-expanded', String(isOpen));
     });
     document.addEventListener('keydown', event => {
-      if (event.key === 'Escape') closeMobileMenu();
+      if (event.key === 'Escape') {
+        closeMobileMenu();
+        closeDesignLightbox();
+      }
     });
   }
 
@@ -2781,6 +3457,10 @@ document.addEventListener('DOMContentLoaded', () => {
       else link.removeAttribute('aria-current');
     });
     closeMobileMenu();
+    closeDesignLightbox();
+    if (schoolVideo && page !== 'fasilitas' && !schoolVideo.paused) {
+      schoolVideo.pause();
+    }
     if (activeView && page === 'tentang') startCounters(activeView);
     if (anchor) {
       activateTabs.forEach(activate => activate(anchor));
@@ -2811,7 +3491,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   <script type="module" async onerror="window.onoAnimationGate?.fail()">
     import { animate, inView, stagger, hover, press } from 'https://cdn.jsdelivr.net/npm/motion@latest/+esm';
-    import { animate as animeAnimate } from 'https://cdn.jsdelivr.net/npm/animejs@4.5.0/+esm';
+    import { animate as animeAnimate, stagger as animeStagger } from 'https://cdn.jsdelivr.net/npm/animejs@4.5.0/+esm';
 
     const gate = window.onoAnimationGate;
     function initAnimations() {
@@ -2820,6 +3500,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const disposers = [], motionRuns = new Set(), animeRuns = new Set();
       const originals = new Map();
       const initialNumbers = new Map();
+      const initialWidths = new Map();
       const active = () => gate.state !== 'off';
       const visiblePage = el => !el.closest('.site-page')?.hidden;
       const remember = el => {
@@ -2856,13 +3537,14 @@ document.addEventListener('DOMContentLoaded', () => {
         animeRuns.forEach(run => { try { run.cancel(); } catch (_) {} });
         originals.forEach((_, el) => restore(el));
         initialNumbers.forEach((text, el) => { el.textContent = text; });
+        initialWidths.forEach((width, el) => { el.style.width = width; });
       };
       const safe = fn => (...args) => {
         if (!active()) return;
         try { return fn(...args); } catch (error) { console.warn('Animasi dinonaktifkan:', error); gate.fail(); }
       };
       try {
-        // Hero dan reveal hanya sekali; kelompokkan elemen yang masuk bersamaan.
+        // Hero beranda, hero sub-halaman, dan reveal dijalankan sekali dengan Motion.
         const show = (targets, duration, gap) => {
           targets = targets.filter(el => !el.hasAttribute('data-motion-done') && visiblePage(el));
           if (!targets.length) return;
@@ -2871,6 +3553,9 @@ document.addEventListener('DOMContentLoaded', () => {
             {duration, delay: stagger(gap), ease: [0.22, 1, 0.36, 1]}, true);
         };
         const hero = [...document.querySelectorAll('[data-hero]')];
+        const subPageHeroes = [...document.querySelectorAll('.site-page .page-hero')].map(section =>
+          [...section.querySelectorAll('.breadcrumb, h1, .hero-subtitle')]
+        );
         let queued = new Set(), frame = 0;
         const flush = safe(() => {
           frame = 0;
@@ -2898,7 +3583,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('focusin', focus);
         disposers.push(() => document.removeEventListener('focusin', focus));
 
-        // CTA: satu state untuk hover dan press agar tidak saling menimpa.
+        // CTA: satu state untuk hover dan press agar tidak saling menimpa (Motion spring).
         for (const el of document.querySelectorAll('[data-cta]')) {
           let over = false, down = false, run;
           const update = safe(() => {
@@ -2910,7 +3595,20 @@ document.addEventListener('DOMContentLoaded', () => {
           disposers.push(press(el, safe(() => { down = true; update(); return () => { down = false; update(); }; })));
         }
 
-        // Statistik aktual: hanya nilai numerik, format dan satuan dipertahankan.
+        // Umpan balik pegas halus pada kartu tab interaktif (Motion press).
+        for (const tab of document.querySelectorAll('.grad-tab-card')) {
+          let tabRun;
+          disposers.push(press(tab, safe(() => {
+            if (tabRun) tabRun.stop();
+            tabRun = runMotion(tab, {scale: 0.98}, {type: 'spring', stiffness: 480, damping: 28});
+            return safe(() => {
+              if (tabRun) tabRun.stop();
+              tabRun = runMotion(tab, {scale: 1}, {type: 'spring', stiffness: 420, damping: 24}, true);
+            });
+          })));
+        }
+
+        // Statistik aktual & grafik batang: sinkron dengan Anime.js.
         for (const el of document.querySelectorAll('[data-anime-count]')) {
           const original = el.textContent;
           initialNumbers.set(el, original);
@@ -2930,14 +3628,53 @@ document.addEventListener('DOMContentLoaded', () => {
           observer.observe(el); disposers.push(() => observer.disconnect());
         }
 
-        // Ikuti perubahan atribut hidden dari fungsi tab asli, tanpa menimpanya.
+        for (const bar of document.querySelectorAll('.bar-fill')) {
+          const originalWidth = bar.style.width;
+          if (!originalWidth) continue;
+          initialWidths.set(bar, originalWidth);
+          let barPlayed = false;
+          const observer = new IntersectionObserver(safe(entries => {
+            if (barPlayed || !visiblePage(bar) || !entries.some(entry => entry.isIntersecting)) return;
+            barPlayed = true; observer.disconnect();
+            bar.style.width = '0%';
+            runAnime(bar, {width: ['0%', originalWidth], duration: 1050, ease: 'outCubic',
+              onComplete: () => { bar.style.width = originalWidth; }});
+          }), {threshold: 0.1});
+          observer.observe(bar); disposers.push(() => observer.disconnect());
+        }
+
+        // Ikuti perubahan atribut hidden dari fungsi tab, modal, dan halaman tanpa menimpanya.
         const panels = [...document.querySelectorAll('[data-anime-panel]')];
         const states = new Map(panels.map(el => [el, !el.hidden && visiblePage(el)]));
         const panelRuns = new Map();
         const floatEl = document.querySelector('[data-anime-float]');
-        let floating;
+        const playCircle = document.querySelector('[data-anime-play]');
+        const videoStage = document.getElementById('schoolVideoStage');
+        const videoMarkers = [document.getElementById('markerAsrama'), document.getElementById('markerSekolah')].filter(Boolean);
+        const lightboxEl = document.getElementById('designLightbox');
+        const lightboxDialog = lightboxEl?.querySelector('[data-anime-dialog]');
+        let floating, playPulse, markersRun, dialogRun;
+        let wasLightboxOpen = Boolean(lightboxEl && !lightboxEl.hidden);
+        let markersShownOnce = false;
+
+        const animateMarkersIn = safe(() => {
+          if (!videoMarkers.length || !videoStage || videoStage.classList.contains('annotations-hidden')) return;
+          if (markersRun) { markersRun.cancel(); animeRuns.delete(markersRun); }
+          videoMarkers.forEach(remember);
+          markersRun = runAnime(videoMarkers, {
+            opacity: [0, 1],
+            duration: 520,
+            delay: animeStagger(140),
+            ease: 'outCubic',
+            onComplete: () => { markersRun = null; videoMarkers.forEach(restore); }
+          });
+        });
+
         const sync = safe(() => {
           if (hero.length && visiblePage(hero[0])) show(hero, 0.75, 0.12);
+          for (const group of subPageHeroes) {
+            if (group.length && visiblePage(group[0])) show(group, 0.62, 0.09);
+          }
           for (const el of panels) {
             const shown = !el.hidden && visiblePage(el), wasShown = states.get(el);
             states.set(el, shown);
@@ -2957,10 +3694,47 @@ document.addEventListener('DOMContentLoaded', () => {
           } else if (floating && !visiblePage(floatEl)) {
             floating.cancel(); animeRuns.delete(floating); floating = null; restore(floatEl);
           }
+          const playVisible = Boolean(playCircle && videoStage && visiblePage(playCircle) && !videoStage.classList.contains('is-playing'));
+          if (playVisible && !playPulse) {
+            remember(playCircle);
+            playPulse = runAnime(playCircle, {scale: [1, 1.06], duration: 1500, ease: 'inOutSine', alternate: true, loop: true});
+          } else if (playPulse && !playVisible) {
+            playPulse.cancel(); animeRuns.delete(playPulse); playPulse = null; restore(playCircle);
+          }
+          if (videoStage && visiblePage(videoStage) && !markersShownOnce) {
+            markersShownOnce = true;
+            animateMarkersIn();
+          }
+          if (lightboxEl && lightboxDialog) {
+            const isOpen = !lightboxEl.hidden && visiblePage(lightboxEl);
+            if (isOpen && !wasLightboxOpen) {
+              if (dialogRun) { dialogRun.cancel(); animeRuns.delete(dialogRun); }
+              remember(lightboxDialog);
+              dialogRun = runAnime(lightboxDialog, {
+                opacity: [0, 1], translateY: [14, 0], scale: [0.97, 1],
+                duration: 280, ease: 'outCubic',
+                onComplete: () => { dialogRun = null; restore(lightboxDialog); }
+              });
+            } else if (!isOpen && dialogRun) {
+              dialogRun.cancel(); animeRuns.delete(dialogRun); dialogRun = null; restore(lightboxDialog);
+            }
+            wasLightboxOpen = isOpen;
+          }
         });
         const tabsObserver = new MutationObserver(sync);
         document.querySelectorAll('.site-page').forEach(el => tabsObserver.observe(el, {attributes: true, subtree: true, attributeFilter: ['hidden']}));
         disposers.push(() => tabsObserver.disconnect());
+        if (videoStage) {
+          let wasHiddenMarkers = videoStage.classList.contains('annotations-hidden');
+          const stageObserver = new MutationObserver(safe(() => {
+            const isHiddenMarkers = videoStage.classList.contains('annotations-hidden');
+            if (wasHiddenMarkers && !isHiddenMarkers && visiblePage(videoStage)) animateMarkersIn();
+            wasHiddenMarkers = isHiddenMarkers;
+            sync();
+          }));
+          stageObserver.observe(videoStage, {attributes: true, attributeFilter: ['class']});
+          disposers.push(() => stageObserver.disconnect());
+        }
         sync();
         gate.ready();
       } catch (error) { console.warn('Animasi dinonaktifkan:', error); gate.fail(); }
