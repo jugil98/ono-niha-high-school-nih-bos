@@ -2333,7 +2333,7 @@ a {
             <div data-anime-panel class="grad-detail-content is-active" id="panel-lapisan-1" role="tabpanel" aria-labelledby="lapisan-1" data-panel="lapisan-1">
               <h3>Lapisan 1: Kurikulum Nasional</h3>
               <p>
-                Fondasi akademik sesuai standar nasional (struktur <strong>Kurikulum Merdeka</strong>), mencakup Pendidikan Agama, Pancasila, Bahasa Indonesia, Bahasa Inggris, Matematika, IPA, IPS, Informatika, PJOK, dan Seni Budaya. Di kelas XI dan XII, peserta didik dapat memilih mata pelajaran sesuai minat dan rencana studi lanjutan.
+                Fondasi akademik sesuai standar nasional (struktur <strong>Kurikulum Merdeka</strong>), mencakup Pendidikan Agama, Pancasila, Bahasa Indonesia, Bahasa Inggris, Matematika, Biologi, Fisika, Kimia, Sejarah, Geografi, Ekonomi, Sosiologi, Informatika, PJOK, dan Seni Budaya. Di kelas XI dan XII, peserta didik dapat memilih mata pelajaran sesuai minat dan rencana studi lanjutan.
               </p>
               <div class="subject-pills" style="margin-top: 18px;">
                 <span class="pill">Pendidikan Agama</span>
@@ -2341,8 +2341,13 @@ a {
                 <span class="pill">Bahasa Indonesia</span>
                 <span class="pill">Bahasa Inggris</span>
                 <span class="pill">Matematika</span>
-                <span class="pill">IPA</span>
-                <span class="pill">IPS</span>
+                <span class="pill">Biologi</span>
+                <span class="pill">Fisika</span>
+                <span class="pill">Kimia</span>
+                <span class="pill">Sejarah</span>
+                <span class="pill">Geografi</span>
+                <span class="pill">Ekonomi</span>
+                <span class="pill">Sosiologi</span>
                 <span class="pill">Informatika</span>
                 <span class="pill">PJOK</span>
                 <span class="pill">Seni Budaya</span>
@@ -2727,8 +2732,8 @@ a {
               poster="Desain%20Sekolah.png"
               aria-label="Video tampilan kawasan Ono Niha High School"
             >
-              <source src="Tampak%20depan.mp4" type="video/mp4">
-              Peramban Anda belum mendukung pemutaran video HTML5. Silakan unduh berkas <a href="Tampak%20depan.mp4">Tampak depan.mp4</a>.
+              <source src="Video%20Sekolah.mp4" type="video/mp4">
+              Peramban Anda belum mendukung pemutaran video HTML5. Silakan unduh berkas <a href="Video%20Sekolah.mp4">Video Sekolah.mp4</a>.
             </video>
             <svg
               id="schoolVideoAnnotations"
@@ -2785,7 +2790,7 @@ a {
                   <path d="M8 5.14v13.72a1 1 0 0 0 1.52.85l10.6-6.86a1 1 0 0 0 0-1.7L9.52 4.29A1 1 0 0 0 8 5.14z"/>
                 </svg>
               </span>
-              <span class="school-video-play-label">Putar Video Tampak Depan Sekolah</span>
+              <span class="school-video-play-label">Putar Video Sekolah</span>
             </button>
           </div>
 
@@ -2797,8 +2802,11 @@ a {
             <div class="school-video-actions">
               <button data-cta type="button" id="toggleVideoAnnotations" class="btn btn-outline btn-sm" aria-pressed="true">Sembunyikan Penanda</button>
               <button data-cta type="button" id="fullscreenSchoolVideo" class="btn btn-outline btn-sm">Layar Penuh</button>
-              <button data-cta type="button" id="openDesignLightbox" class="btn btn-outline btn-sm">Lihat Gambar Desain</button>
-              <a data-cta href="#/fasilitas/asrama" class="btn btn-primary btn-sm">Lihat Kehidupan Asrama &darr;</a>
+              <button data-cta type="button" id="openDesignLightbox" class="btn btn-primary btn-sm">Lihat Desain Sekolah</button>
+              <button data-cta type="button" id="openUniformLightbox" class="btn btn-primary btn-sm">Lihat Desain Seragam</button>
+              <button data-cta type="button" id="openClassroomLightbox" class="btn btn-primary btn-sm">Lihat Ruang Kelas</button>
+              <button data-cta type="button" id="openLibraryLightbox" class="btn btn-primary btn-sm">Lihat Perpustakaan</button>
+              <button data-cta type="button" id="openDormLightbox" class="btn btn-primary btn-sm">Lihat Kamar Asrama</button>
             </div>
           </div>
 
@@ -2867,6 +2875,54 @@ a {
               </g>
             </svg>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="uniformLightbox" class="design-lightbox" role="dialog" aria-modal="true" aria-labelledby="uniformLightboxTitle" hidden>
+      <div data-anime-dialog class="design-lightbox-dialog">
+        <div class="design-lightbox-bar">
+          <strong id="uniformLightboxTitle">Desain Seragam Ono Niha High School</strong>
+          <button type="button" id="closeUniformLightbox" class="design-lightbox-close" aria-label="Tutup tampilan desain seragam">Tutup &times;</button>
+        </div>
+        <div class="design-lightbox-body">
+          <img src="Desain%20Seragam.jpeg" alt="Desain seragam batik khas Ono Niha High School bermotif Nias berwarna hijau dan emas dengan bawahan putih" class="design-lightbox-img">
+        </div>
+      </div>
+    </div>
+
+    <div id="classroomLightbox" class="design-lightbox" role="dialog" aria-modal="true" aria-labelledby="classroomLightboxTitle" hidden>
+      <div data-anime-dialog class="design-lightbox-dialog">
+        <div class="design-lightbox-bar">
+          <strong id="classroomLightboxTitle">Desain Ruang Kelas (Formasi Leter U) — Ono Niha High School</strong>
+          <button type="button" id="closeClassroomLightbox" class="design-lightbox-close" aria-label="Tutup tampilan desain ruang kelas">Tutup &times;</button>
+        </div>
+        <div class="design-lightbox-body">
+          <img src="Desain%20Ruang%20Kelas.jpg" alt="Desain ruang kelas Ono Niha High School dengan tempat duduk leter U, meja dan kursi guru tanpa podium, ukiran khas Nias, dan jendela menghadap pesisir" class="design-lightbox-img">
+        </div>
+      </div>
+    </div>
+
+    <div id="libraryLightbox" class="design-lightbox" role="dialog" aria-modal="true" aria-labelledby="libraryLightboxTitle" hidden>
+      <div data-anime-dialog class="design-lightbox-dialog">
+        <div class="design-lightbox-bar">
+          <strong id="libraryLightboxTitle">Desain Perpustakaan — Ono Niha High School</strong>
+          <button type="button" id="closeLibraryLightbox" class="design-lightbox-close" aria-label="Tutup tampilan desain perpustakaan">Tutup &times;</button>
+        </div>
+        <div class="design-lightbox-body">
+          <img src="Desain%20Perpustakaan.jpg" alt="Desain perpustakaan Ono Niha High School dengan rak buku kayu, meja belajar kelompok, bangku baca jendela pantai, dan peta Pulau Nias" class="design-lightbox-img">
+        </div>
+      </div>
+    </div>
+
+    <div id="dormLightbox" class="design-lightbox" role="dialog" aria-modal="true" aria-labelledby="dormLightboxTitle" hidden>
+      <div data-anime-dialog class="design-lightbox-dialog">
+        <div class="design-lightbox-bar">
+          <strong id="dormLightboxTitle">Desain Kamar Asrama (3&times;5 m) — Ono Niha High School</strong>
+          <button type="button" id="closeDormLightbox" class="design-lightbox-close" aria-label="Tutup tampilan desain kamar asrama">Tutup &times;</button>
+        </div>
+        <div class="design-lightbox-body">
+          <img src="Desain%20Kamar%20Asrama.jpg" alt="Desain kamar asrama Ono Niha High School berukuran 3x5 meter dengan 3 bunkbed bertingkat, 3 lemari kayu besar, dan jendela menghadap pesisir" class="design-lightbox-img">
         </div>
       </div>
     </div>
@@ -3153,6 +3209,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const designLightbox = document.getElementById('designLightbox');
   const openDesignLightboxBtn = document.getElementById('openDesignLightbox');
   const closeDesignLightboxBtn = document.getElementById('closeDesignLightbox');
+  const uniformLightbox = document.getElementById('uniformLightbox');
+  const openUniformLightboxBtn = document.getElementById('openUniformLightbox');
+  const closeUniformLightboxBtn = document.getElementById('closeUniformLightbox');
+  const classroomLightbox = document.getElementById('classroomLightbox');
+  const openClassroomLightboxBtn = document.getElementById('openClassroomLightbox');
+  const closeClassroomLightboxBtn = document.getElementById('closeClassroomLightbox');
+  const libraryLightbox = document.getElementById('libraryLightbox');
+  const openLibraryLightboxBtn = document.getElementById('openLibraryLightbox');
+  const closeLibraryLightboxBtn = document.getElementById('closeLibraryLightbox');
+  const dormLightbox = document.getElementById('dormLightbox');
+  const openDormLightboxBtn = document.getElementById('openDormLightbox');
+  const closeDormLightboxBtn = document.getElementById('closeDormLightbox');
 
   const asramaLine = document.getElementById('asramaLine');
   const asramaPulse = document.getElementById('asramaPulse');
@@ -3233,9 +3301,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function closeDesignLightbox() {
-    if (!designLightbox || designLightbox.hidden) return;
-    designLightbox.hidden = true;
-    document.body.style.overflow = '';
+    let closedAny = false;
+    [designLightbox, uniformLightbox, classroomLightbox, libraryLightbox, dormLightbox].forEach(modal => {
+      if (modal && !modal.hidden) {
+        modal.hidden = true;
+        closedAny = true;
+      }
+    });
+    if (closedAny) document.body.style.overflow = '';
   }
 
   if (schoolVideo && schoolVideoStage && schoolVideoPlayBtn) {
@@ -3301,20 +3374,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  if (designLightbox && openDesignLightboxBtn && closeDesignLightboxBtn) {
-    openDesignLightboxBtn.addEventListener('click', () => {
-      designLightbox.hidden = false;
-      document.body.style.overflow = 'hidden';
-      closeDesignLightboxBtn.focus();
-    });
-    closeDesignLightboxBtn.addEventListener('click', () => {
+  function bindLightbox(modal, openBtn, closeBtn) {
+    if (!modal || !openBtn || !closeBtn) return;
+    openBtn.addEventListener('click', () => {
       closeDesignLightbox();
-      openDesignLightboxBtn.focus();
+      modal.hidden = false;
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
     });
-    designLightbox.addEventListener('click', event => {
-      if (event.target === designLightbox) closeDesignLightbox();
+    closeBtn.addEventListener('click', () => {
+      closeDesignLightbox();
+      openBtn.focus();
+    });
+    modal.addEventListener('click', event => {
+      if (event.target === modal) closeDesignLightbox();
     });
   }
+  bindLightbox(designLightbox, openDesignLightboxBtn, closeDesignLightboxBtn);
+  bindLightbox(uniformLightbox, openUniformLightboxBtn, closeUniformLightboxBtn);
+  bindLightbox(classroomLightbox, openClassroomLightboxBtn, closeClassroomLightboxBtn);
+  bindLightbox(libraryLightbox, openLibraryLightboxBtn, closeLibraryLightboxBtn);
+  bindLightbox(dormLightbox, openDormLightboxBtn, closeDormLightboxBtn);
 
   function closeMobileMenu() {
     if (mobileDrawer) mobileDrawer.classList.remove('open');
@@ -3651,10 +3731,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const playCircle = document.querySelector('[data-anime-play]');
         const videoStage = document.getElementById('schoolVideoStage');
         const videoMarkers = [document.getElementById('markerAsrama'), document.getElementById('markerSekolah')].filter(Boolean);
-        const lightboxEl = document.getElementById('designLightbox');
-        const lightboxDialog = lightboxEl?.querySelector('[data-anime-dialog]');
-        let floating, playPulse, markersRun, dialogRun;
-        let wasLightboxOpen = Boolean(lightboxEl && !lightboxEl.hidden);
+        const lightboxes = [...document.querySelectorAll('.design-lightbox')].map(el => ({
+          el,
+          dialog: el.querySelector('[data-anime-dialog]'),
+          wasOpen: !el.hidden,
+          run: null
+        }));
+        let floating, playPulse, markersRun;
         let markersShownOnce = false;
 
         const animateMarkersIn = safe(() => {
@@ -3705,20 +3788,21 @@ document.addEventListener('DOMContentLoaded', () => {
             markersShownOnce = true;
             animateMarkersIn();
           }
-          if (lightboxEl && lightboxDialog) {
-            const isOpen = !lightboxEl.hidden && visiblePage(lightboxEl);
-            if (isOpen && !wasLightboxOpen) {
-              if (dialogRun) { dialogRun.cancel(); animeRuns.delete(dialogRun); }
-              remember(lightboxDialog);
-              dialogRun = runAnime(lightboxDialog, {
+          for (const lb of lightboxes) {
+            if (!lb.dialog) continue;
+            const isOpen = !lb.el.hidden && visiblePage(lb.el);
+            if (isOpen && !lb.wasOpen) {
+              if (lb.run) { lb.run.cancel(); animeRuns.delete(lb.run); }
+              remember(lb.dialog);
+              lb.run = runAnime(lb.dialog, {
                 opacity: [0, 1], translateY: [14, 0], scale: [0.97, 1],
                 duration: 280, ease: 'outCubic',
-                onComplete: () => { dialogRun = null; restore(lightboxDialog); }
+                onComplete: () => { lb.run = null; restore(lb.dialog); }
               });
-            } else if (!isOpen && dialogRun) {
-              dialogRun.cancel(); animeRuns.delete(dialogRun); dialogRun = null; restore(lightboxDialog);
+            } else if (!isOpen && lb.run) {
+              lb.run.cancel(); animeRuns.delete(lb.run); lb.run = null; restore(lb.dialog);
             }
-            wasLightboxOpen = isOpen;
+            lb.wasOpen = isOpen;
           }
         });
         const tabsObserver = new MutationObserver(sync);
